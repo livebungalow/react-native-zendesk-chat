@@ -1,6 +1,6 @@
 {
 	"name": "react-native-zendesk-chat",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"description": "React Native Wrapper around Zopim Zendesk Chat",
 	"main": "index.js",
 	"types": "RNZendeskChat.d.ts",
@@ -35,7 +35,10 @@
 		"Zane Chua <github.com/zanechua>"
 	],
 	"license": "MIT",
-	"devDependencies": { "prettier": "2.0.x", "eslint": "7.3.x" },
+	"devDependencies": {
+		"prettier": "2.0.x",
+		"eslint": "7.3.x"
+	},
 	"peerDependencies": {
 		"react": "^16.11.0",
 		"react-native": "0.60.x | 0.61.x | 0.62.x"
