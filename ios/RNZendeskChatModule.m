@@ -191,7 +191,8 @@ RCT_EXPORT_METHOD(init:(NSString *)zenDeskKey) {
 	[ZDKChat initializeWithAccountKey:zenDeskKey queue:dispatch_get_main_queue()];
 }
 
-RCT_EXPORT_METHOD(getAccount) {
+RCT_EXPORT_METHOD(getAccount:(RCTResponseSenderBlock)callback) {
 	[ZDKChat.accountProvider getAccount:^(ZDKChatAccount *account, NSError *error) {
+		callback(@[[NSNull null], @([account])])
 }
 @end
