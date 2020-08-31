@@ -3,6 +3,7 @@ package com.taskrabbit.zendesk;
 import android.app.Activity;
 import android.util.Log;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -19,6 +20,10 @@ import zendesk.chat.ChatEngine;
 import zendesk.chat.VisitorInfo;
 import zendesk.messaging.MessagingActivity;
 import zendesk.messaging.MessagingConfiguration;
+import zendesk.chat.AccountStatus;
+import com.zendesk.service.ZendeskCallback;
+import com.zendesk.service.ErrorResponse;
+import zendesk.chat.Account;
 
 import java.lang.String;
 import java.util.ArrayList;
@@ -277,19 +282,25 @@ public class RNZendeskChatModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getAccountStatus(Callback cb) {
-        accountProvider().getAccount(new ZendeskCallback<Account>() {
+    public void getAccountStatus(final Callback cb) {
+        Chat.INSTANCE.providers().accountProvider().getAccount(new ZendeskCallback<Account>() {
+
                 @Override
                 public void onSuccess(Account account) {
-                    Log.d(TAG, account)
+                  if (account.getStatus() == AccountStatus.ONLINE){
+                      cb.invoke(null, "online");
+                  } else {
+                      cb.invoke(null, "offline");
+                  }
                 }
 
                 @Override
                 public void onError(ErrorResponse errorResponse) {
                     // Handle error in getting Account here
-                    cb(errorResponse, null);
+                    cb.invoke(errorResponse, null);
                 }
         });
     }
+
 
 }
