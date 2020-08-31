@@ -193,10 +193,14 @@ RCT_EXPORT_METHOD(init:(NSString *)zenDeskKey) {
 
 RCT_EXPORT_METHOD(getAccountStatus:(RCTResponseSenderBlock)callback) {
 	[ZDKChat.accountProvider getAccount:^(ZDKChatAccount *account, NSError *error) {
-		NSInteger status = account.accountStatus;
-        RCTLogInfo(@"getAccount %@ - %ls", account, (long)status);
 		if (account) {
-		callback(@[error, (long)status]);
+      switch(account.accountStatus) {
+          case ZDKChatAccountStatusOnline:
+              callback(@[[NSNull null], @"online"]);
+              break;
+          default: 
+              callback(@[[NSNull null], @"offline"]);
+      }
 		} else {
 			callback(@[error, [NSNull null]]);
 		}

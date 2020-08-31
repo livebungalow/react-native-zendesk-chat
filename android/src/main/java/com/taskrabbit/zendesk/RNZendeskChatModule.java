@@ -275,4 +275,21 @@ public class RNZendeskChatModule extends ReactContextBaseJavaModule {
             Log.e(TAG, "Could not load getCurrentActivity -- no UI can be displayed without it.");
         }
     }
+
+    @ReactMethod
+    public void getAccountStatus(Callback cb) {
+        accountProvider().getAccount(new ZendeskCallback<Account>() {
+                @Override
+                public void onSuccess(Account account) {
+                    Log.d(TAG, account)
+                }
+
+                @Override
+                public void onError(ErrorResponse errorResponse) {
+                    // Handle error in getting Account here
+                    cb(errorResponse, null);
+                }
+        });
+    }
+
 }
