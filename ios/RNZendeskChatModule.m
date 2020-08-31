@@ -193,7 +193,7 @@ RCT_EXPORT_METHOD(init:(NSString *)zenDeskKey) {
 
 RCT_EXPORT_METHOD(getAccount:(RCTResponseSenderBlock)callback) {
 	[ZDKChat.accountProvider getAccount:^(ZDKChatAccount *account, NSError *error) {
-		RCTLogInfo(@"getAccount", account, error);
+		RCTLogInfo(@"getAccount %@ - %@ ", account, error);
 		if (account) {
 		callback(@[[NSNull null], account]);
 		} else {
