@@ -23,6 +23,7 @@ declare module "react-native-zendesk-chat" {
 	/** Current default is "optional" */
 	type PreChatFormFieldOptionVisibility = "hidden" | "optional" | "required";
 	type AgentStatus = "online" | "offline";
+	type AgentStatusCallback = (error: string, status: AgentStatus) => void;
 
 	interface StartChatOptions extends VisitorInfoOptions {
 		department?: string;
@@ -82,7 +83,7 @@ declare module "react-native-zendesk-chat" {
 		 */
 		setVisitorInfo: (options: VisitorInfoOptions) => void;
 
-		getAccountStatus: (error: string, status: AgentStatus) => void;
+		getAccountStatus: (cb: AgentStatusCallback) => void;
 	}
 
 	const RNZendeskChatModule: RNZendeskChatModuleImpl;
